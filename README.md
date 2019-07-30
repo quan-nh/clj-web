@@ -4,6 +4,7 @@
 - [part 2: compojure](doc/clj-web-from-the-ground-up-2.md)
 - [part 3: component & reloadable workflow](doc/clj-web-from-the-ground-up-3.md)
 - [part 4: db](doc/clj-web-from-the-ground-up-4.md)
+- [part 5: config](doc/clj-web-from-the-ground-up-5.md)
 
 ## Installation
 

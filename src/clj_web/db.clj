@@ -2,19 +2,11 @@
   (:require [com.stuartsierra.component :as component])
   (:import (com.mchange.v2.c3p0 ComboPooledDataSource)))
 
-(def db-spec
-  {:classname   "org.h2.Driver"
-   :subprotocol "h2:mem"                  ; the prefix `jdbc:` is added automatically
-   :subname     "demo;DB_CLOSE_DELAY=-1"  ; `;DB_CLOSE_DELAY=-1` very important!!!
-                    ; http://www.h2database.com/html/features.html#in_memory_databases
-   :user        "sa"                      ; default "system admin" user
-   :password    ""                        ; default password => empty string
-   })
-
-(defrecord Database [db-spec datasource]
+(defrecord Database [datasource config]
   component/Lifecycle
   (start [this]
-    (let [cpds (doto (ComboPooledDataSource.)
+    (let [db-spec (get-in config [:config :db-spec])
+          cpds (doto (ComboPooledDataSource.)
                  (.setDriverClass (:classname db-spec))
                  (.setJdbcUrl (str "jdbc:" (:subprotocol db-spec) ":" (:subname db-spec)))
                  (.setUser (:user db-spec))
@@ -29,4 +21,4 @@
     (assoc this :datasource nil)))
 
 (defn new-database []
-  (map->Database {:db-spec db-spec}))
+  (map->Database {}))

@@ -12,7 +12,8 @@
                  [compojure "1.6.1"]
                  [org.clojure/java.jdbc "0.7.9"]
                  [com.h2database/h2 "1.4.199"]
-                 [com.mchange/c3p0 "0.9.5.4"]]
+                 [com.mchange/c3p0 "0.9.5.4"]
+                 [aero "1.1.3"]]
   :main ^:skip-aot clj-web.core
   :target-path "target/%s"
   :profiles {:dev {:source-paths ["dev"]}
