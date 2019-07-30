@@ -9,7 +9,10 @@
                  [ring/ring-core "1.7.1"]
                  [ring/ring-defaults "0.3.2"]
                  [ring-jetty-component "0.3.1"]
-                 [compojure "1.6.1"]]
+                 [compojure "1.6.1"]
+                 [org.clojure/java.jdbc "0.7.9"]
+                 [com.h2database/h2 "1.4.199"]
+                 [com.mchange/c3p0 "0.9.5.4"]]
   :main ^:skip-aot clj-web.core
   :target-path "target/%s"
   :profiles {:dev {:source-paths ["dev"]}

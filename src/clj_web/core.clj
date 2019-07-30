@@ -1,19 +1,19 @@
 (ns clj-web.core
   (:gen-class)
-  (:require [compojure.core :refer :all]
-            [compojure.route :as route]
-            [ring.component.jetty :refer [jetty-server]]
+  (:require [ring.component.jetty :refer [jetty-server]]
             [com.stuartsierra.component :as component]
-            [ring.middleware.defaults :refer :all]))
-
-(defroutes app-routes
-  (GET "/" [] "Hello World!")
-  (route/not-found "Page not found"))
+            [clj-web.app :refer [new-app]]
+            [clj-web.db :refer [new-database]]))
 
 (defn app-system
   []
-  (component/system-map
-   :http (jetty-server {:app {:handler (wrap-defaults app-routes site-defaults)} :port 3000})))
+  (-> (component/system-map
+       :db (new-database)
+       :app (new-app)
+       :http (jetty-server {:port 3000}))
+      (component/system-using
+       {:http [:app]
+        :app [:db]})))
 
 (defn -main
   "I don't do a whole lot ... yet."
