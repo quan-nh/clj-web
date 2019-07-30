@@ -7,19 +7,6 @@ add deps
 [com.mchange/c3p0 "0.9.5.4"]
 ```
 
-system
-```clj
-(defn app-system
-  []
-  (-> (component/system-map
-       :db (new-database)
-       :app (new-app)
-       :http (jetty-server {:port 3000}))
-      (component/system-using
-       {:http [:app]
-        :app [:db]})))
-```
-
 `db.clj`
 ```clj
 (ns clj-web.db
@@ -83,4 +70,17 @@ system
 
 (defn new-app []
   (map->App {:handler app-routes}))
+```
+
+system
+```clj
+(defn app-system
+  []
+  (-> (component/system-map
+       :db (new-database)
+       :app (new-app)
+       :http (jetty-server {:port 3000}))
+      (component/system-using
+       {:http [:app]
+        :app [:db]})))
 ```

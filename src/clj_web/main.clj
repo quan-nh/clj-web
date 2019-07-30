@@ -1,4 +1,4 @@
-(ns clj-web.core
+(ns clj-web.main
   (:gen-class)
   (:require [ring.component.jetty :refer [jetty-server]]
             [com.stuartsierra.component :as component]
