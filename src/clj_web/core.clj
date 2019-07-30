@@ -7,7 +7,7 @@
             [ring.middleware.defaults :refer :all]))
 
 (defroutes app-routes
-  (GET "/" [] "Hello World")
+  (GET "/" [] "Hello World!")
   (route/not-found "Page not found"))
 
 (defn app-system
