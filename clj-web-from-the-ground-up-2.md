@@ -18,3 +18,19 @@ Add the following dependency to your `project.clj` file:
   (-> app-routes
       (run-jetty {:port 3000})))
 ```
+
+add some middlewares
+```clj
+[ring/ring-defaults "0.3.2"]
+```
+
+```clj
+  (:require [ring.middleware.defaults :refer :all])
+
+(defn -main
+  "I don't do a whole lot ... yet."
+  [& args]
+  (-> app-routes
+      (wrap-defaults site-defaults)
+      (run-jetty {:port 3000})))
+```

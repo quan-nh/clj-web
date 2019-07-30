@@ -2,7 +2,8 @@
   (:gen-class)
   (:require [compojure.core :refer :all]
             [compojure.route :as route]
-            [ring.adapter.jetty :refer [run-jetty]]))
+            [ring.adapter.jetty :refer [run-jetty]]
+            [ring.middleware.defaults :refer :all]))
 
 (defroutes app-routes
   (GET "/" [] "Hello World")
@@ -12,4 +13,5 @@
   "I don't do a whole lot ... yet."
   [& args]
   (-> app-routes
+      (wrap-defaults site-defaults)
       (run-jetty {:port 3000})))
