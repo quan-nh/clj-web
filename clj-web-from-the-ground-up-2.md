@@ -1,8 +1,12 @@
-(ns clj-web.core
-  (:gen-class)
+Add the following dependency to your `project.clj` file:
+
+```clj
+[compojure "1.6.1"]
+```
+
+```clj
   (:require [compojure.core :refer :all]
-            [compojure.route :as route]
-            [ring.adapter.jetty :refer [run-jetty]]))
+            [compojure.route :as route])
 
 (defroutes app-routes
   (GET "/" [] "Hello World")
@@ -13,3 +17,4 @@
   [& args]
   (-> app-routes
       (run-jetty {:port 3000})))
+```
