@@ -2,16 +2,20 @@
   (:gen-class)
   (:require [compojure.core :refer :all]
             [compojure.route :as route]
-            [ring.adapter.jetty :refer [run-jetty]]
+            [ring.component.jetty :refer [jetty-server]]
+            [com.stuartsierra.component :as component]
             [ring.middleware.defaults :refer :all]))
 
 (defroutes app-routes
   (GET "/" [] "Hello World")
   (route/not-found "Page not found"))
 
+(defn app-system
+  []
+  (component/system-map
+   :http (jetty-server {:app {:handler (wrap-defaults app-routes site-defaults)} :port 3000})))
+
 (defn -main
   "I don't do a whole lot ... yet."
   [& args]
-  (-> app-routes
-      (wrap-defaults site-defaults)
-      (run-jetty {:port 3000})))
+  (component/start (app-system)))
