@@ -1,8 +1,8 @@
 # clj-web
 
-- [part 1: basic web](clj-web-from-the-ground-up-1.md)
-- [part 2: compojure](clj-web-from-the-ground-up-2.md)
-- [part 3: component & reloadable workflow](clj-web-from-the-ground-up-3.md)
+- [part 1: basic web](doc/clj-web-from-the-ground-up-1.md)
+- [part 2: compojure](doc/clj-web-from-the-ground-up-2.md)
+- [part 3: component & reloadable workflow](doc/clj-web-from-the-ground-up-3.md)
 
 ## Installation
 
