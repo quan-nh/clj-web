@@ -4,13 +4,12 @@
             [com.stuartsierra.component :as component]
             [ring.middleware.defaults :refer :all]
             [muuntaja.middleware :as mw]
-            [clojure.java.jdbc :as jdbc]))
+            [clj-web.handler.foo :as foo-handler]))
 
 (defn app-routes [db]
   (routes
    (GET "/" [] "Hello World!")
-   (GET "/db" [] {:status 200
-                  :body (jdbc/query db ["SELECT 3*5 AS result"])})
+   (GET "/db" req (foo-handler/bar req db))
    (route/not-found "404")))
 
 (defrecord App [handler db]
