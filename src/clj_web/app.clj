@@ -3,13 +3,13 @@
             [compojure.route :as route]
             [com.stuartsierra.component :as component]
             [ring.middleware.defaults :refer :all]
+            [muuntaja.middleware :as mw]
             [clojure.java.jdbc :as jdbc]))
 
 (defn app-routes [db]
   (routes
    (GET "/" [] "Hello World!")
    (GET "/db" [] {:status 200
-                  :headers {"Content-Type" "text/html"}
                   :body (jdbc/query db ["SELECT 3*5 AS result"])})
    (route/not-found "404")))
 
@@ -17,7 +17,8 @@
   component/Lifecycle
   (start [this]
     (assoc this :handler (-> (handler db)
-                             (wrap-defaults site-defaults))))
+                             (mw/wrap-format)
+                             (wrap-defaults api-defaults))))
   (stop [this]
     (assoc this :handler nil)))
 

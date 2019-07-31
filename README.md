@@ -1,10 +1,11 @@
 # clj-web
 
-- [part 1: basic web](https://github.com/quan-nh/clj-web/blob/part1/clj-web-from-the-ground-up-1.md)
-- [part 2: compojure](https://github.com/quan-nh/clj-web/blob/part2/clj-web-from-the-ground-up-2.md)
-- [part 3: component & reloadable workflow](https://github.com/quan-nh/clj-web/blob/part3/clj-web-from-the-ground-up-3.md)
-- [part 4: db](https://github.com/quan-nh/clj-web/blob/part4/clj-web-from-the-ground-up-4.md)
-- [part 5: config](https://github.com/quan-nh/clj-web/blob/part5/clj-web-from-the-ground-up-5.md)
+- [part 1: basic web](doc/clj-web-from-the-ground-up-1.md)
+- [part 2: compojure](doc/clj-web-from-the-ground-up-2.md)
+- [part 3: component & reloadable workflow](doc/clj-web-from-the-ground-up-3.md)
+- [part 4: db](doc/clj-web-from-the-ground-up-4.md)
+- [part 5: config](doc/clj-web-from-the-ground-up-5.md)
+- [part 6: api](doc/clj-web-from-the-ground-up-6.md)
 
 ## Installation
 

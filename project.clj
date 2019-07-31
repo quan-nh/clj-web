@@ -13,7 +13,8 @@
                  [org.clojure/java.jdbc "0.7.9"]
                  [com.h2database/h2 "1.4.199"]
                  [com.mchange/c3p0 "0.9.5.4"]
-                 [aero "1.1.3"]]
+                 [aero "1.1.3"]
+                 [metosin/muuntaja "0.6.4"]]
   :main ^:skip-aot clj-web.core
   :target-path "target/%s"
   :profiles {:dev {:source-paths ["dev"]}
