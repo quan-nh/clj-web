@@ -8,6 +8,7 @@
                  [reloaded.repl "0.2.4"]
                  ; web
                  [ring/ring-core "1.7.1"]
+                 [ring/ring-jetty-adapter "1.7.1"]
                  [ring/ring-defaults "0.3.2"]
                  [ring-jetty-component "0.3.1"]
                  [compojure "1.6.1"]
