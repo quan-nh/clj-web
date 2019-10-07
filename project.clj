@@ -17,7 +17,7 @@
                  ; config
                  [aero "1.1.3"]
                  ; db
-                 [org.clojure/java.jdbc "0.7.9"]
+                 [toucan "1.14.0"]
                  [com.h2database/h2 "1.4.199"]
                  [com.mchange/c3p0 "0.9.5.4"]
                  ; logging

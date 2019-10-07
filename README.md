@@ -7,7 +7,9 @@
 - [part 5: config](doc/clj-web-from-the-ground-up-5.md)
 - [part 6: api](doc/clj-web-from-the-ground-up-6.md)
 - [part 7: logging](doc/clj-web-from-the-ground-up-7.md)
-- [part 8: test](doc/clj-web-from-the-ground-up-8.md)
+- [part 8: db again](doc/clj-web-from-the-ground-up-8.md)
+- [part 9: test](doc/clj-web-from-the-ground-up-9.md)
+- [part 10: auth](doc/clj-web-from-the-ground-up-10.md)
 
 ## Installation
 
