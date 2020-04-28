@@ -1,7 +1,7 @@
 logging
 
 ```
-[org.clojure/tools.logging "0.5.0"]
+[org.clojure/tools.logging "1.1.0"]
 [ch.qos.logback/logback-classic "1.2.3"]
 ```
 
