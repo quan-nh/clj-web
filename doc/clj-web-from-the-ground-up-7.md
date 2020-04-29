@@ -10,11 +10,11 @@ logging
 <configuration>
 
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
-        <layout class="ch.qos.logback.classic.PatternLayout">
-            <Pattern>
+        <encoder>
+            <pattern>
                 %d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n
-            </Pattern>
-        </layout>
+            </pattern>
+        </encoder>
     </appender>
 
     <logger name="clj-web" level="debug" additivity="false">
@@ -26,4 +26,11 @@ logging
     </root>
 
 </configuration>
+```
+
+then we can use that
+```clj
+  (:require [clojure.tools.logging :as log])
+
+  (log/debug req)
 ```
