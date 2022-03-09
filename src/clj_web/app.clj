@@ -10,6 +10,7 @@
   (routes
    (GET "/" [] "Hello World!")
    (GET "/db" req (foo-handler/bar req db))
+   (POST "/data" {:keys [body-params]} (foo-handler/data body-params))
    (route/not-found "404")))
 
 (defrecord App [handler db]
