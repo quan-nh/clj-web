@@ -3,14 +3,14 @@ new app
 $ lein new app clj-web
 ```
 
-update dependencies
+update dependencies on `project.clj`
 ```clj
-  :dependencies [[org.clojure/clojure "1.10.1"]
-                 [ring/ring-core "1.8.0"]
-                 [ring/ring-jetty-adapter "1.8.0"]]
+  :dependencies [[org.clojure/clojure "1.11.1"]
+                 [ring/ring-core "1.11.0-RC1"]
+                 [ring/ring-jetty-adapter "1.11.0-RC1"]]
 ```
 
-add basic handler
+add basic handler to `src\clj_web\core.clj`
 ```clj
 (defn handler [request]
   {:status 200
@@ -32,4 +32,4 @@ start on `-main`
   (run-jetty handler {:port 3000}))
 ```
 
-`lein run` http://localhost:3000/
+`lein run` & the app can be accessed at http://localhost:3000/
