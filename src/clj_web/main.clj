@@ -9,14 +9,14 @@
 (defn app-system
   []
   (-> (component/system-map
-       :config (new-config)
-       :db (new-database)
-       :app (new-app)
-       :http (jetty-server {:port 3000}))
+        :config (new-config)
+        :db (new-database)
+        :app (new-app)
+        :http (jetty-server {:port 3000}))
       (component/system-using
-       {:http [:app]
-        :app [:db]
-        :db [:config]})))
+        {:http [:app]
+         :app [:db]
+         :db [:config]})))
 
 (defn -main
   "I don't do a whole lot ... yet."

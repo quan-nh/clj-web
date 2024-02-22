@@ -5,7 +5,7 @@ https://cljdoc.org/d/metosin/reitit/0.6.0/doc/ring/content-negotiation
 `app.clj`
 ```clj
 (:require [muuntaja.core :as m]
-            [reitit.ring.middleware.muuntaja :as muuntaja])
+          [reitit.ring.middleware.muuntaja :as muuntaja])
 
 (defn db-handler [req db]
   {:status 200, :body (jdbc/execute! db ["SELECT 3*5 AS result"])})

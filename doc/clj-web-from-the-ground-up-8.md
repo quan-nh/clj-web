@@ -1,8 +1,8 @@
 logging
 
 ```
-[org.clojure/tools.logging "1.1.0"]
-[ch.qos.logback/logback-classic "1.2.3"]
+[org.clojure/tools.logging "1.3.0"]
+[ch.qos.logback/logback-classic "1.5.0"]
 ```
 
 `resources\logback.xml`

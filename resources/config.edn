@@ -1,9 +1,1 @@
-{:db-spec
- {:classname   "org.h2.Driver"
-  :subprotocol "h2:mem"                  ; the prefix `jdbc:` is added automatically
-  :subname     "demo;DB_CLOSE_DELAY=-1"  ; `;DB_CLOSE_DELAY=-1` very important!!!
-                    ; http://www.h2database.com/html/features.html#in_memory_databases
-  :user        "sa"                      ; default "system admin" user
-  :password    ""                        ; default password => empty string
-  }
-}
+{:db-spec {:dbtype "h2" :dbname "example"}}
