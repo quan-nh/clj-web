@@ -14,7 +14,7 @@
                  [metosin/muuntaja "0.6.4"]
                  [metosin/ring-http-response "0.9.1"]
                  ; config
-                 [aero "1.1.3"]
+                 [aero "1.1.6"]
                  ; db
                  [com.github.seancorfield/next.jdbc "1.3.909"]
                  [com.h2database/h2 "2.2.224"]
