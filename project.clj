@@ -16,9 +16,9 @@
                  ; config
                  [aero "1.1.3"]
                  ; db
-                 [org.clojure/java.jdbc "0.7.9"]
-                 [com.h2database/h2 "1.4.199"]
-                 [com.mchange/c3p0 "0.9.5.4"]
+                 [com.github.seancorfield/next.jdbc "1.3.909"]
+                 [com.h2database/h2 "2.2.224"]
+                 [com.zaxxer/HikariCP "5.1.0"]
                  ; logging
                  [org.clojure/tools.logging "0.5.0"]
                  [ch.qos.logback/logback-classic "1.2.3"]]

@@ -2,39 +2,23 @@ add db layer
 
 add deps
 ```
-[org.clojure/java.jdbc "0.7.9"]
-[com.h2database/h2 "1.4.199"]
-[com.mchange/c3p0 "0.9.5.4"]
+[com.github.seancorfield/next.jdbc "1.3.909"]
+[com.h2database/h2 "2.2.224"]
+[com.zaxxer/HikariCP "5.1.0"]
 ```
 
 `db.clj`
 ```clj
 (ns clj-web.db
-  (:require [com.stuartsierra.component :as component])
-  (:import (com.mchange.v2.c3p0 ComboPooledDataSource)))
+  (:import (com.stuartsierra.component Lifecycle)
+           (com.zaxxer.hikari HikariDataSource)))
 
-(def db-spec
-  {:classname   "org.h2.Driver"
-   :subprotocol "h2:mem"                  ; the prefix `jdbc:` is added automatically
-   :subname     "demo;DB_CLOSE_DELAY=-1"  ; `;DB_CLOSE_DELAY=-1` very important!!!
-                    ; http://www.h2database.com/html/features.html#in_memory_databases
-   :user        "sa"                      ; default "system admin" user
-   :password    ""                        ; default password => empty string
-   })
+(def db-spec {:dbtype "h2" :dbname "example"})
 
 (defrecord Database [db-spec datasource]
-  component/Lifecycle
+  Lifecycle
   (start [this]
-    (let [cpds (doto (ComboPooledDataSource.)
-                 (.setDriverClass (:classname db-spec))
-                 (.setJdbcUrl (str "jdbc:" (:subprotocol db-spec) ":" (:subname db-spec)))
-                 (.setUser (:user db-spec))
-                 (.setPassword (:password db-spec))
-               ;; expire excess connections after 30 minutes of inactivity:
-                 (.setMaxIdleTimeExcessConnections (* 30 60))
-               ;; expire connections after 3 hours of inactivity:
-                 (.setMaxIdleTime (* 3 60 60)))]
-      (assoc this :datasource cpds)))
+    (assoc this :datasource (connection/->pool HikariDataSource db-spec)))
   (stop [this]
     (.close datasource)
     (assoc this :datasource nil)))
@@ -43,44 +27,60 @@ add deps
   (map->Database {:db-spec db-spec}))
 ```
 
+split `core.clj` to `app.clj` & `main.clj`
+
 `app.clj`
 ```clj
 (ns clj-web.app
-  (:require [compojure.core :refer :all]
-            [compojure.route :as route]
-            [com.stuartsierra.component :as component]
-            [ring.middleware.defaults :refer :all]
-            [clojure.java.jdbc :as jdbc]))
+  (:require [com.stuartsierra.component :as component]
+            [next.jdbc :as jdbc]
+            [reitit.ring :as ring]))
 
-(defn app-routes [db]
-  (routes
-   (GET "/" [] "Hello World!")
-   (GET "/db" [] {:status 200
-                  :headers {"Content-Type" "text/html"}
-                  :body (jdbc/query db ["SELECT 3*5 AS result"])})
-   (route/not-found "404")))
+(defn ok-handler [_]
+  {:status 200, :body "ok"})
+
+(defn db-handler [req db]
+  {:status 200, :body (prn-str (jdbc/execute! db ["SELECT 3*5 AS result"]))})
+
+(defn app-handler [db]
+  (ring/ring-handler
+    (ring/router
+      [["/" ok-handler]
+       ["/db" #(db-handler % db)]])
+    (ring/create-default-handler)))
 
 (defrecord App [handler db]
   component/Lifecycle
   (start [this]
-    (assoc this :handler (-> (handler db)
-                             (wrap-defaults site-defaults))))
+    (assoc this :handler (handler db)))
   (stop [this]
     (assoc this :handler nil)))
 
 (defn new-app []
-  (map->App {:handler app-routes}))
+  (map->App {:handler app-handler}))
 ```
 
-system
+`main.clj`
 ```clj
+(ns clj-web.main
+  (:gen-class)
+  (:require [ring.component.jetty :refer [jetty-server]]
+            [com.stuartsierra.component :as component]
+            [clj-web.app :refer [new-app]]
+            [clj-web.db :refer [new-database]]))
+
 (defn app-system
   []
   (-> (component/system-map
-       :db (new-database)
-       :app (new-app)
-       :http (jetty-server {:port 3000}))
+        :db (new-database)
+        :app (new-app)
+        :http (jetty-server {:port 3000}))
       (component/system-using
-       {:http [:app]
-        :app [:db]})))
+        {:http [:app]
+         :app [:db]})))
+
+(defn -main
+  "I don't do a whole lot ... yet."
+  [& args]
+  (component/start (app-system)))
 ```
