@@ -2,7 +2,7 @@
 
 add deps
 ```
-[com.stuartsierra/component "0.4.0"]
+[com.stuartsierra/component "1.1.0"]
 [ring-jetty-component "0.3.1"]
 ```
 
@@ -13,7 +13,7 @@ add deps
 (defn app-system
   []
   (component/system-map
-   :http (jetty-server {:app {:handler (wrap-defaults app-routes site-defaults)} :port 3000})))
+    :http (jetty-server {:app {:handler app}, :port 3000})))
 
 (defn -main
   "I don't do a whole lot ... yet."
