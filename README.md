@@ -1,7 +1,7 @@
 # clj-web
 
 - [part 1: basic web](doc/clj-web-from-the-ground-up-1.md)
-- [part 2: routing with compojure](doc/clj-web-from-the-ground-up-2.md)
+- [part 2: routing with Reitit](doc/clj-web-from-the-ground-up-2.md)
 - [part 3: component & reloadable workflow](doc/clj-web-from-the-ground-up-3.md)
 - [part 4: db](doc/clj-web-from-the-ground-up-4.md)
 - [part 5: config](doc/clj-web-from-the-ground-up-5.md)
@@ -15,4 +15,4 @@
     $ lein repl
     (init/start/stop/reset)
 
- Access the app at http://localhost:3000/   
+ Access the app at http://localhost:3000/

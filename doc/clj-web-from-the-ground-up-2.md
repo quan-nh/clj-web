@@ -1,36 +1,51 @@
 Add the following dependency to your `project.clj` file:
 
 ```clj
-[compojure "1.6.1"]
+[metosin/reitit "0.6.0"]
 ```
 
 ```clj
-  (:require [compojure.core :refer :all]
-            [compojure.route :as route])
+  (:require [reitit.ring :as ring])
 
-(defroutes app-routes
-  (GET "/" [] "Hello World")
-  (route/not-found "Page not found"))
+# handler ..
+
+(def app
+  (ring/ring-handler
+    (ring/router
+      ["/" {:get handler}])
+    (ring/create-default-handler)))
 
 (defn -main
   "I don't do a whole lot ... yet."
   [& args]
-  (-> app-routes
-      (run-jetty {:port 3000})))
+  (run-jetty app {:port 3000}))
 ```
 
-add some middlewares
+adding middleware
+
+Middleware can be mounted using a `:middleware` key - either to top-level or under request method submap.
 ```clj
-[ring/ring-defaults "0.3.2"]
+(defn wrap [handler id]
+  (fn [request]
+    (handler (update request ::acc (fnil conj []) id))))
+
+(defn handler [{::keys [acc]}]
+  {:status 200, :body  (prn-str (conj acc :handler)) })
+
+(def app
+  (ring/ring-handler
+    (ring/router
+      ;; a middleware function
+      ["/api" {:middleware [#(wrap % :api)]}
+       ["/ping" handler]
+       ;; a middleware vector at top level
+       ["/admin" {:middleware [[wrap :admin]]}
+        ["/db" {:middleware [[wrap :db]]
+                ;; a middleware vector at under a method
+                :delete {:middleware [[wrap :delete]]
+                         :handler handler}}]]])
+    (ring/create-default-handler)))
 ```
 
-```clj
-  (:require [ring.middleware.defaults :refer :all])
-
-(defn -main
-  "I don't do a whole lot ... yet."
-  [& args]
-  (-> app-routes
-      (wrap-defaults site-defaults)
-      (run-jetty {:port 3000})))
-```
+GET http://localhost:3000/api/ping ==> [:api :handler]
+DELETE http://localhost:3000/api/admin/db ==> [:api :admin :db :delete :handler]

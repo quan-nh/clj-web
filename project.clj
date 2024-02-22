@@ -11,7 +11,7 @@
                  [ring/ring-jetty-adapter "1.11.0"]
                  [ring/ring-defaults "0.3.2"]
                  [ring-jetty-component "0.3.1"]
-                 [compojure "1.6.1"]
+                 [metosin/reitit-ring "0.6.0"]
                  [metosin/muuntaja "0.6.4"]
                  [metosin/ring-http-response "0.9.1"]
                  ; config
