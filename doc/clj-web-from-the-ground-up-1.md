@@ -6,8 +6,8 @@ $ lein new app clj-web
 update dependencies on `project.clj`
 ```clj
   :dependencies [[org.clojure/clojure "1.11.1"]
-                 [ring/ring-core "1.11.0-RC1"]
-                 [ring/ring-jetty-adapter "1.11.0-RC1"]]
+                 [ring/ring-core "1.11.0"]
+                 [ring/ring-jetty-adapter "1.11.0"]]
 ```
 
 add basic handler to `src\clj_web\core.clj`
