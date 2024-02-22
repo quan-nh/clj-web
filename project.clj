@@ -11,8 +11,6 @@
                  [ring/ring-jetty-adapter "1.11.0"]
                  [ring-jetty-component "0.3.1"]
                  [metosin/reitit "0.6.0"]
-                 [metosin/muuntaja "0.6.4"]
-                 [metosin/ring-http-response "0.9.1"]
                  ; config
                  [aero "1.1.6"]
                  ; db

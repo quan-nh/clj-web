@@ -1,19 +1,23 @@
 api
 
-`[metosin/muuntaja "0.6.4"]`
+https://cljdoc.org/d/metosin/reitit/0.6.0/doc/ring/content-negotiation
 
 `app.clj`
 ```clj
-(:require [muuntaja.middleware :as mw])
+(:require [muuntaja.core :as m]
+            [reitit.ring.middleware.muuntaja :as muuntaja])
 
-(defrecord App [handler db]
-  component/Lifecycle
-  (start [this]
-    (assoc this :handler (-> (handler db)
-                             (mw/wrap-format)
-                             (wrap-defaults api-defaults))))
-  (stop [this]
-    (assoc this :handler nil)))
+(defn db-handler [req db]
+  {:status 200, :body (jdbc/execute! db ["SELECT 3*5 AS result"])})
+
+(defn app-handler [db]
+  (ring/ring-handler
+    (ring/router
+      [["/" ok-handler]
+       ["/db" #(db-handler % db)]]
+      {:data {:muuntaja m/instance
+              :middleware [muuntaja/format-middleware]}})
+    (ring/create-default-handler)))
 ```
 
 json request
